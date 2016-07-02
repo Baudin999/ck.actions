@@ -4,7 +4,6 @@
   "description": "",
   "main": "./dist/main.js",
   "scripts": {
-    "dev": "node ./dist/main.js",
     "test": "live-server --port=4012 --open=./tests/index.html",
     "postinstall": "typings install"
   },
