@@ -1,0 +1,20 @@
+{
+  "name": "actions",
+  "version": "0.0.0",
+  "description": "",
+  "main": "./dist/main.js",
+  "scripts": {
+    "dev": "node ./dist/main.js",
+    "test": "live-server --port=4012 --open=./tests/index.html",
+    "postinstall": "typings install"
+  },
+  "author": "Carlos Kelkboom",
+  "license": "ISC",
+  "devDependencies": {
+    "jasmine-core": "2.4.1",
+    "live-server": "^1.0.0"
+  },
+  "dependencies": {
+    "systemjs": "^0.19.31"
+  }
+}

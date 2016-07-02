@@ -1,0 +1,15 @@
+ {
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "system",
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "outFile": "./../dist/tests/out.js",
+    "sourceMap": true,
+    "watch": true
+  },
+  "files":[
+    "./action.spec.ts",
+    "./../src/*"
+  ]
+}
