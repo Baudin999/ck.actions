@@ -4,7 +4,7 @@
     "module": "commonjs",
     "removeComments": false,
     "preserveConstEnums": true,
-    "outDir": "./../dist/",
+    "outDir": "./../dist/src/",
     "sourceRoot": "./",
     "sourceMap": true,
     "watch": true

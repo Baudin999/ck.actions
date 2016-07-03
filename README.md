@@ -20,20 +20,25 @@ is "safer" but doing these things give a unique insight in the workings of the c
 
 You can build the source by going into the `./src` directory and running the TypeScript compiler (`tsc`). You should use at least 
 TypeScript 2.0 which, while writing this, is installable by running: `npm install typescript@next -g`. You can now invoke the 
-TypeScript compiler. I use a special configuration for my source and my tests. My tests are concatted into a single file which
+TypeScript compiler. 
+
+I use a unique TypeScript configuration for my source and my tests. My tests are concatted into a single file which
 you can load using [systemjs](https://github.com/systemjs/systemjs). 
 
 The `index.html` file in the tests folder looks has the following "meat and bones":
 
-```markup
+```HTML
 <script src="./../dist/tests/out.js"></script>
 
 <script>
   System.import('tests/action.spec').then(r => {
     r.default();
-  })
+  });
 </script>
 ```
+
+Other test files would either be added in the `index.html` or I'll add a `main.spec.ts` file and just import all the other tests.
+
 
 ## TypeScript
 

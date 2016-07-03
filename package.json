@@ -2,8 +2,10 @@
   "name": "actions",
   "version": "0.0.0",
   "description": "",
-  "main": "./dist/main.js",
+  "main": "./dist/src/main.js",
   "scripts": {
+    "run-main": "node ./dist/src/main.js",
+    "r": "npm run run-main",
     "test": "live-server --port=4012 --open=./tests/index.html",
     "postinstall": "typings install"
   },
