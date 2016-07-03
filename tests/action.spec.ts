@@ -9,7 +9,31 @@ export default function () {
             let add: (x: number, y: number) => number = (x, y) => x + y;
             let a = new Action(add);
             return expect(a.ap).toBeDefined();
-        })
+        });
+        it('can return a tuple', () => {
+            let add: (x: number, y: number) => number = (x, y) => x + y;
+            let a = new Action(add);
+            return expect(a.ap(12, 13)).toEqual(25);
+        });
+        it('should support currying', () => {
+            let add: (x: number, y: number) => number = (x, y) => x + y;
+            let a = new Action(add);
+            return expect(a.ap(12) instanceof Action).toBeTruthy() &&
+                   expect((a.ap(12) as Action<number>).ap(13)).toEqual(25);
+        });
+    });
+
+    describe('The Empty function', () => {
+        it('exists', () => expect(Action.empty).toBeDefined());
+        it('can be called and returns an action', () => {
+            let e = Action.empty();
+            return expect(e).toBeDefined() && expect(e.ap(12)).toEqual([12]);
+        });
+        it('will return a tuple when applied', () => {
+            let a = Action.empty();
+            let [first, second] = a.ap(1, 2) as any[]; // we'll need to cast this in order to not get an error
+            return expect(first).toEqual(1) && expect(second).toEqual(2);
+        });
     });
 
 
@@ -34,9 +58,9 @@ export default function () {
 
         it('Should be able to compose multiple functions', () => {
 
-            let createList:() => number[] = () => [1,2,3,4,5,6];
-            let filterEvenNumbers:(list:number[]) => number[] = (list) => list.filter(i => i % 2 === 0);
-            let sumNumbers:(list:number[]) => number = (list) => list.reduce((accumulator, i) => accumulator + i, 0);
+            let createList: () => number[] = () => [1, 2, 3, 4, 5, 6];
+            let filterEvenNumbers: (list: number[]) => number[] = (list) => list.filter(i => i % 2 === 0);
+            let sumNumbers: (list: number[]) => number = (list) => list.reduce((accumulator, i) => accumulator + i, 0);
 
             let action = new Action(createList).map(filterEvenNumbers).map(sumNumbers);
             let result = action.ap();
@@ -45,9 +69,9 @@ export default function () {
 
         it('Composition should be possible with actions', () => {
 
-            let createList:() => number[] = () => [1,2,3,4,5,6];
-            let filterEvenNumbers:(list:number[]) => number[] = (list) => list.filter(i => i % 2 === 0);
-            let sumNumbers:(list:number[]) => number = (list) => list.reduce((accumulator, i) => accumulator + i, 0);
+            let createList: () => number[] = () => [1, 2, 3, 4, 5, 6];
+            let filterEvenNumbers: (list: number[]) => number[] = (list) => list.filter(i => i % 2 === 0);
+            let sumNumbers: (list: number[]) => number = (list) => list.reduce((accumulator, i) => accumulator + i, 0);
 
             let aAction = new Action(createList)
             let bAction = new Action(filterEvenNumbers).map(sumNumbers);
