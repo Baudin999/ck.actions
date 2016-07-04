@@ -4,12 +4,14 @@
     "module": "system",
     "removeComments": false,
     "preserveConstEnums": true,
-    "outFile": "./../dist/tests/out.js",
+    "outFile": "./tests/out.js",
     "sourceMap": true,
     "watch": true
   },
-  "files":[
-    "./action.spec.ts",
-    "./../src/*"
+  "filesGlob":[
+    "./tests/**/*.spec.ts",
+    "./src/**/*.ts",
+    "!node_modules/**/*.ts",
+    "!**/*.json"
   ]
 }

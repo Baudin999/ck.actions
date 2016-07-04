@@ -6,6 +6,7 @@
   "scripts": {
     "run-main": "node ./dist/src/main.js",
     "r": "npm run run-main",
+    "dev": "tsc -p ./tsconfig.test.json && tsc -p ./tsconfig.dev.json",
     "test": "live-server --port=4012 --open=./tests/index.html",
     "postinstall": "typings install"
   },
@@ -16,6 +17,8 @@
     "live-server": "^1.0.0"
   },
   "dependencies": {
+    "bluebird": "^3.4.1",
+    "es6-promise": "^3.2.1",
     "systemjs": "^0.19.31"
   }
 }

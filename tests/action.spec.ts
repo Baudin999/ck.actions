@@ -1,6 +1,7 @@
-/// <reference path="./../typings/globals/jasmine/index.d.ts" />
+/// <reference path="./../typings/index.d.ts" />
 import { IFunctor } from './../src/interfaces';
 import { Action } from './../src/action';
+import { AsyncAction } from './../src/action-async';
 
 export default function () {
     describe('An Action', () => {
@@ -20,6 +21,27 @@ export default function () {
             let a = new Action(add);
             return expect(a.ap(12) instanceof Action).toBeTruthy() &&
                    expect((a.ap(12) as Action<number>).ap(13)).toEqual(25);
+        });
+
+
+        it ('should allow currying with multiple parameters', () => {
+            let add: (x: number, y: number, z:number) => number = (x, y, z) => x + y + z;
+            let a = new Action(add);
+            let b = a.ap(12) as Action<number>;
+            let c = b.ap(13) as Action<number>;
+            let d = c.ap(14);
+
+            return expect(d).toEqual(39);
+
+        });
+
+        it ('test', (done) => {
+            AsyncAction.foo().then(result => {
+                console.log(result);
+                return done(expect(result).toEqual(12));
+            });
+
+            return true;
         });
     });
 

@@ -1,10 +1,11 @@
-
+//import * as bb from 'bluebird';
 import { IAction, IFunctor, StepFn } from './interfaces';
 
 export class Action<T> implements IAction<T>, IFunctor {
 	
 	private step:StepFn<T>;
-	
+
+
 	/*
 	The constructor function taking a Step Function as a parameter
 	The step function is of type: (...args:any[]) => T
@@ -21,10 +22,10 @@ export class Action<T> implements IAction<T>, IFunctor {
 		// of course we'd want to support currying...
 		if (args.length < this.step.length) {
 			let curried = (...args2) => this.ap.apply(this, args.concat(args2));
-			return new Action(curried);
+			return new Action(curried) as Action<T>;
 		}
 
-		return this.step.apply(null, args);
+		return this.step.apply(null, args) as T;
 	}
 
 	/*
