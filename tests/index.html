@@ -5,21 +5,16 @@
     <title>Actions unit test</title>
     <link rel="stylesheet" href="../node_modules/jasmine-core/lib/jasmine-core/jasmine.css">
 
-    <script src="../node_modules/systemjs/dist/system.js"></script>
-    <script src="../node_modules/bluebird/js/browser/bluebird.js"></script>
-    <script src="../node_modules/es6-promise/dist/es6-promise.js"></script>
+    <script src="/jspm_packages/system.js"></script>
+    <script src="/tests/config.js"></script>
     <script src="../node_modules/jasmine-core/lib/jasmine-core/jasmine.js"></script>
     <script src="../node_modules/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
     <script src="../node_modules/jasmine-core/lib/jasmine-core/boot.js"></script>
 </head>
 <body>
 
-<script src="./out.js"></script>
-
 <script>
-    System.import('tests/action.spec').then(function (r) {
-        return r.default();
-    });
+    System.import('tests/main');
 </script>
 
 </body>

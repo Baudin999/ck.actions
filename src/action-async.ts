@@ -6,7 +6,7 @@ export class AsyncAction {
         
     }
     
-    static foo() {
+    foo() {
         return new Promise<number>((resolve, reject) => {
             setTimeout(() => {
                 resolve(12);

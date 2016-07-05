@@ -6,7 +6,7 @@
   "scripts": {
     "run-main": "node ./dist/src/main.js",
     "r": "npm run run-main",
-    "dev": "tsc -p ./tsconfig.test.json && tsc -p ./tsconfig.dev.json",
+    "dev": "tsc -p ./tsconfig.dev.json",
     "test": "live-server --port=4012 --open=./tests/index.html",
     "postinstall": "typings install"
   },
@@ -16,9 +16,14 @@
     "jasmine-core": "2.4.1",
     "live-server": "^1.0.0"
   },
-  "dependencies": {
-    "bluebird": "^3.4.1",
-    "es6-promise": "^3.2.1",
-    "systemjs": "^0.19.31"
+  "dependencies": {},
+  "jspm": {
+    "configFile": "tests/config.js",
+    "dependencies": {
+      "es6-promise": "npm:es6-promise@^3.2.1",
+      "jasmine-core": "npm:jasmine-core@^2.4.1",
+      "typescript": "npm:typescript@^1.8.10"
+    },
+    "devDependencies": {}
   }
 }

@@ -4,6 +4,7 @@ import { Action } from './../src/action';
 import { AsyncAction } from './../src/action-async';
 
 export default function () {
+
     describe('An Action', () => {
         it('exists', () => expect(Action).toBeDefined());
         it('should be constructable', () => {
@@ -33,15 +34,6 @@ export default function () {
 
             return expect(d).toEqual(39);
 
-        });
-
-        it ('test', (done) => {
-            AsyncAction.foo().then(result => {
-                console.log(result);
-                return done(expect(result).toEqual(12));
-            });
-
-            return true;
         });
     });
 
