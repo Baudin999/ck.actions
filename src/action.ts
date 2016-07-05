@@ -1,9 +1,9 @@
-//import * as bb from 'bluebird';
 import { IAction, IFunctor, StepFn } from './interfaces';
+import { Observable } from 'rx';
 
 export class Action<T> implements IAction<T>, IFunctor {
 	
-	private step:StepFn<T>;
+	public step:StepFn<T>;
 
 
 	/*
@@ -41,17 +41,23 @@ export class Action<T> implements IAction<T>, IFunctor {
 	which we than wrap in a new Action and return. I am aware that this is mighty 
 	complicated....
 	*/
-	map<U>(t:StepFn<U>) {
-		
-		// create the new function by composing the current step with the new function
-		// f(g(x)) so we do something like:
-		// t( this.step(x) );
-		let f:StepFn<U> = (...args) => {
-			let result = this.step.apply(this, args);
-			return t.apply(this, [result]);
-		};
+	map<U>(t:StepFn<U> | Action<U>) {
 
-		return new Action(f);
+        /* We might want to push through a mapping of an Action */
+        if (t instanceof Action) {
+            return this.mapAction(t as Action<U>);
+        }
+        else {
+            // create the new function by composing the current step with the new function
+            // f(g(x)) so we do something like:
+            // t( this.step(x) );
+            let f:StepFn<U> = (...args) => {
+                let result = this.step.apply(this, args);
+                return (t as StepFn<U>).apply(this, [result]);
+            };
+
+            return new Action(f);
+        }
 	}
 	/* map an action, simple wrapper to unwrap and apply the Action */
 	mapAction<U>(a:Action<U>) {

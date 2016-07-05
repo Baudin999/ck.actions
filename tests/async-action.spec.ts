@@ -9,6 +9,7 @@ export default function () {
         it('exists', () => expect(AsyncAction).toBeDefined());
 
         it('works with promises', async function(done) {
+
             let doubleMe = function(n) {
                 return new Promise(resolve => {
                     setTimeout(() => resolve(n * 2));
@@ -22,6 +23,7 @@ export default function () {
         });
 
         it('can supports currying', async function(done) {
+
             let add:(x:number, y:number) => number = (x,y) => x + y;
             let a = new AsyncAction(add);
             let r = await (a.ap(12) as AsyncAction<Promise<number>>).ap(13);
@@ -29,6 +31,7 @@ export default function () {
         });
 
         it('is composable', async function(done) {
+
             let add:(x:number, y:number) => number = (x,y) => x + y;
             let doubleMe = function(n) {
                 return new Promise(resolve => {
@@ -45,6 +48,7 @@ export default function () {
         });
 
         it('is composable with currying', async function(done) {
+
             let add:(x:number, y:number) => number = (x,y) => x + y;
             let doubleMe = function(n) {
                 return new Promise(resolve => {
@@ -61,7 +65,24 @@ export default function () {
                 done(expect(r).toEqual(50));
 
             });
+        });
 
+        it('is composable through IActions', async function(done) {
+
+            let add:(x:number, y:number) => number = (x,y) => x + y;
+            let doubleMe = function(n) {
+                return new Promise(resolve => {
+                    setTimeout(() => resolve(n * 2));
+                });
+            };
+
+            let a = new AsyncAction(add);
+            let b = new AsyncAction(doubleMe);
+            let c = a.map(b);
+            let d = c.ap(12, 13) as Promise<number>;
+            d.then(r => {
+                done(expect(r).toEqual(50));
+            });
         });
     });
 }

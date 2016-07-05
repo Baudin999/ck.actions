@@ -1,4 +1,3 @@
-
 import { IAction, IFunctor, StepFn } from './interfaces';
 import { Promise } from 'es6-promise';
 
@@ -13,7 +12,7 @@ function promisify(val:any) {
 
 export class AsyncAction<T> implements IAction<Promise<T>>, IFunctor {
 
-    private step:StepFn<T>;
+    public step:StepFn<T>;
     private length:number;
 
 
@@ -39,30 +38,34 @@ export class AsyncAction<T> implements IAction<Promise<T>>, IFunctor {
     }
 
 
-    map<U>(t:StepFn<U>) {
+    map<U>(t:StepFn<U> | AsyncAction<U>) : AsyncAction<Promise<U>> {
 
-        // create the new function by composing the current step with the new function
-        // f(g(x)) so we do something like:
-        // t( this.step(x) );
+        /*
+            When the property is an action we can mapAction...
+         */
+        if (t instanceof AsyncAction) {
+            return this.mapAction(t as IAction<U>);
+        }
+
+        /*
+            create the new function by composing the current step with the new function
+            The difficulty is that every step can either be a promise or a real value,
+            this is why
+        */
         let f:StepFn<U> = (...args) => {
-
             return new Promise((resolve) => {
                 this.ap.apply(this, args).then(r1 => {
-
-                    var r2 = t(r1);
-                    if (r2 instanceof Promise) {
-                        r2.then(r3 => resolve(r3));
-                    }
-                    else {
-                        resolve(r2);
-                    }
-
+                    promisify((t as Function)(r1)).then(r2 => resolve(r2));
                 });
             });
-
         };
 
         return new AsyncAction(f, this.length);
+    }
+
+    /* map an action, simple wrapper to unwrap and apply the AsyncAction */
+    mapAction<U>(a:IAction<U>) : AsyncAction<Promise<U>> {
+        return this.map(a.step);
     }
 
 }

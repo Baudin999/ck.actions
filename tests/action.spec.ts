@@ -6,17 +6,23 @@ export default function () {
 
     describe('An Action', () => {
         it('exists', () => expect(Action).toBeDefined());
+
         it('should be constructable', () => {
+
             let add: (x: number, y: number) => number = (x, y) => x + y;
             let a = new Action(add);
             return expect(a.ap).toBeDefined();
         });
+        
         it('can return a tuple', () => {
+
             let add: (x: number, y: number) => number = (x, y) => x + y;
             let a = new Action(add);
             return expect(a.ap(12, 13)).toEqual(25);
         });
+
         it('should support currying', () => {
+
             let add: (x: number, y: number) => number = (x, y) => x + y;
             let a = new Action(add);
             return expect(a.ap(12) instanceof Action).toBeTruthy() &&
@@ -32,7 +38,6 @@ export default function () {
             let d = c.ap(14);
 
             return expect(d).toEqual(39);
-
         });
     });
 
@@ -50,7 +55,7 @@ export default function () {
     });
 
 
-    describe('An action sould be a Functor', () => {
+    describe('An action should be a Functor', () => {
         it('and have a map function', () => {
             let add: (x: number, y: number) => number = (x, y) => x + y;
             let a = new Action(add) as IFunctor;
@@ -66,7 +71,18 @@ export default function () {
 
             let result = b.ap(2, 3);
             return expect(result).toEqual(10);
+        });
 
+        it('The map function should compose Actions', () => {
+
+            let add: (x: number, y: number) => number = (x, y) => x + y;
+            let double: (x: number) => number = (x) => x + x;
+            let a = new Action(add);
+            let b = new Action(double);
+            let c = a.map(b);
+
+            let result = c.ap(2, 3);
+            return expect(result).toEqual(10);
         });
 
         it('Should be able to compose multiple functions', () => {

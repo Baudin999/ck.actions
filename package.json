@@ -22,6 +22,7 @@
     "dependencies": {
       "es6-promise": "npm:es6-promise@^3.2.1",
       "jasmine-core": "npm:jasmine-core@^2.4.1",
+      "rx": "npm:rx@^4.1.0",
       "typescript": "npm:typescript@^1.8.10"
     },
     "devDependencies": {}
