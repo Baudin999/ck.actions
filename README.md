@@ -9,6 +9,11 @@ applications and will bring a more "functional" style of programming to the main
 
 ## Setting up the project
 
+(NOTE: you should have JSPM installed: `npm install -g jspm`)
+(NOTE: after running npm install the installation script wants to install the typings used with TypeScript. You should
+have typings installed: `npm install -g typings`)
+
+
 Step 1: Clone the project
 `git clone https://github.com/Baudin999/ck.actions.git`
 
@@ -18,8 +23,6 @@ Step 2: install the npm packages
 Step 3: install the jspm packages
 `jspm install`
 
-
-(NOTE: you should have JSPM installed: `npm install -g jspm`)
 
 This should be enough to run the application. The rest of the document explains how to use the ck.actions library.
 
