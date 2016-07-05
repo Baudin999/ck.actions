@@ -40,11 +40,8 @@ export default function () {
             let b = a.map(doubleMe);
             let c = b.ap(12, 13) as Promise<number>;
             c.then(r => {
-
                 done(expect(r).toEqual(50));
-
             });
-
         });
 
         it('is composable with currying', async function(done) {

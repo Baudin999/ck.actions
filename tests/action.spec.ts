@@ -75,8 +75,8 @@ export default function () {
             let filterEvenNumbers: (list: number[]) => number[] = (list) => list.filter(i => i % 2 === 0);
             let sumNumbers: (list: number[]) => number = (list) => list.reduce((accumulator, i) => accumulator + i, 0);
 
-            let action = new Action(createList).map(filterEvenNumbers).map(sumNumbers);
-            let result = action.ap();
+            let a = new Action(createList).map(filterEvenNumbers).map(sumNumbers);
+            let result = a.ap();
             return expect(result).toEqual(12);
         });
 
@@ -86,11 +86,11 @@ export default function () {
             let filterEvenNumbers: (list: number[]) => number[] = (list) => list.filter(i => i % 2 === 0);
             let sumNumbers: (list: number[]) => number = (list) => list.reduce((accumulator, i) => accumulator + i, 0);
 
-            let aAction = new Action(createList)
-            let bAction = new Action(filterEvenNumbers).map(sumNumbers);
-            let cAction = aAction.mapAction(bAction);
+            let a = new Action(createList);
+            let b = new Action(filterEvenNumbers).map(sumNumbers);
+            let c = a.mapAction(b);
 
-            let result = cAction.ap();
+            let result = c.ap();
 
             return expect(result).toEqual(12);
         });
