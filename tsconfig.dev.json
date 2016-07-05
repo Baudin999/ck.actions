@@ -1,12 +1,22 @@
  {
   "compilerOptions": {
-    "target": "ES5",
+    "target": "ES2015",
     "module": "commonjs",
     "removeComments": false,
     "preserveConstEnums": true,
-    "outDir": "./dist/",
-    "sourceRoot": "./src/",
+    "outDir": "./dist/src/",
+    "sourceRoot": ".",
     "sourceMap": true,
     "watch": true
-  }
+  },
+   "fileGlobs": [
+      "./src/*"
+   ],
+   "exclude": [
+     "node_modules",
+     "typings",
+     "jspm_packages",
+     "dist",
+     "tests"
+   ]
 }

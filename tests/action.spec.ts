@@ -1,7 +1,6 @@
 /// <reference path="./../typings/index.d.ts" />
 import { IFunctor } from './../src/interfaces';
 import { Action } from './../src/action';
-import { AsyncAction } from './../src/action-async';
 
 export default function () {
 

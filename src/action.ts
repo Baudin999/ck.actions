@@ -25,7 +25,9 @@ export class Action<T> implements IAction<T>, IFunctor {
 			return new Action(curried) as Action<T>;
 		}
 
-		return this.step.apply(null, args) as T;
+        else {
+            return this.step.apply(null, args) as T; 
+        }
 	}
 
 	/*
