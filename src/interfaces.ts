@@ -1,4 +1,6 @@
-
+/**
+ * A step function description for the step type within an action.
+ */
 export type StepFn<T> = (...args:any[]) => T;
 
 export interface IAction<T> {

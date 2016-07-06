@@ -7,6 +7,7 @@
     "outDir": "./dist/src/",
     "sourceRoot": ".",
     "sourceMap": true,
+    "noImplicitAny": false,
     "watch": true
   },
    "fileGlobs": [
