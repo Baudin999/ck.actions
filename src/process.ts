@@ -1,5 +1,5 @@
 
-import { IWrapper, LiftFn } from './interfaces';
+import { IWrapper } from './interfaces';
 import { Exception } from './exception';
 
 /**
@@ -27,7 +27,7 @@ export class Process<T> implements IWrapper<T> {
             this.error = (m as Exception);
         }
         else if (typeof m === "string") {
-            this.error = new Exception(m);
+            this.error = new Exception(m.toString());
         }
         else {
             this.value = m;
@@ -40,7 +40,7 @@ export class Process<T> implements IWrapper<T> {
      * @param {LiftFn} f - The function which needs to be lifted into a monadic space.
      * @returns {function(Process<U>): Process<V>}
      */
-    static lift<U, V>(f:LiftFn) {
+    static lift<U, V>(f:(u:U) => V) : (_u:Process<U>) => Process<V> {
 
         return (_u:Process<U>) => {
 
@@ -60,26 +60,5 @@ export class Process<T> implements IWrapper<T> {
         };
 
     }
-
-    static lLift<U, V>(f:(u:U) => V) : (_u:Process<U>) => V {
-
-        return (_u:Process<U>) => {
-
-            // if there is an error, we will just pass the error along and
-            // ignore any other calls or functions which need to be called.
-            if (_u.error) return null;
-
-            // this is the else branch...
-            try {
-                return f(_u.value);
-            }
-            catch (ex) {
-                return null;
-            }
-
-        };
-
-    }
-
 
 }

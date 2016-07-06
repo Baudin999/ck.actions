@@ -29,7 +29,8 @@ export interface IWrapper<T> {
  *
  * Signature: (f:(t:T) => U) => (w:IWrapper<T>) => IWrapper<U>
  */
-export type LiftFn<T,U, M> = (f:(t:T) => U) => (p:IWrapper<T>) => IWrapper<U>;
+export type LiftFn<T,U> = (f:(t:T) => U) => (p:IWrapper<T>) => IWrapper<U>;
+
 
 /**
  * This is the type definition of an error. We can either have a
